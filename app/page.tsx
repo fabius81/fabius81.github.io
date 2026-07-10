@@ -710,10 +710,10 @@ export default function Home() {
             <p className="section-copy">{t.contact.description}</p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginTop: "2rem" }}>
-              <a href="mailto:fabius219@hotmail.it" className="button-primary">
+              <a href="mailto:fabius81@gmail.com" className="button-primary">
                 <Mail size={17} /> {t.contact.email}
               </a>
-              <a href="https://www.linkedin.com/in/fabio-di-paolo/" target="_blank" rel="noreferrer" className="button-secondary">
+              <a href="https://www.linkedin.com/in/fdipaolo/" target="_blank" rel="noreferrer" className="button-secondary">
                 <Linkedin size={17} /> {t.contact.linkedin} <ArrowUpRight size={15} />
               </a>
               <a href="https://github.com/fabius81" target="_blank" rel="noreferrer" className="button-secondary">

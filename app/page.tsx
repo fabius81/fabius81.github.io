@@ -694,7 +694,7 @@ export default function Home() {
                 <a href="/cv/Fabio_Di_Paolo_Resume_EN.pdf" download className="button-primary">
                   {t.resume.english} <Download size={17} />
                 </a>
-                <a href="/cv/Fabio_Di_Paolo_CV_IT.pdf" download className="button-secondary">
+                <a href="/cv/Fabio_Di_Paolo_Resume_IT.pdf" download className="button-secondary">
                   {t.resume.italian} <Download size={17} />
                 </a>
               </div>

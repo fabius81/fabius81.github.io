@@ -7,9 +7,9 @@ export const metadata: Metadata = {
     "Professional portfolio of Fabio Di Paolo, Senior Solution Consultant focused on enterprise technology, technical delivery and customer success.",
   metadataBase: new URL("https://fabius81.github.io"),
   icons: {
-    icon: "/app/favicon.png",
-    shortcut: "/app/favicon.png",
-    apple: "/app/favicon.png",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
     title: "Fabio Di Paolo | Professional Portfolio",

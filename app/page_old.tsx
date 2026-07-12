@@ -387,26 +387,6 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth > 980) setMenuOpen(false);
-    };
-
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [menuOpen]);
-
   const t = useMemo(() => copy[language], [language]);
 
   const toggleTheme = () => {
@@ -437,7 +417,6 @@ export default function Home() {
   return (
     <>
       <header
-        id="site-header"
         className="glass"
         style={{
           position: "fixed",
@@ -449,12 +428,21 @@ export default function Home() {
           borderRadius: 999
         }}
       >
-        <div className="header-inner">
-          <a href="#home" className="site-name" onClick={() => setMenuOpen(false)}>
+        <div
+          style={{
+            minHeight: 62,
+            padding: "0.45rem 0.65rem 0.45rem 1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem"
+          }}
+        >
+          <a href="#home" style={{ color: "var(--foreground)", fontWeight: 900, letterSpacing: "-0.04em", textDecoration: "none" }}>
             Fabio Di Paolo
           </a>
 
-          <nav className="desktop-nav" aria-label="Main navigation">
+          <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "1.15rem" }}>
             {navItems.map(([href, label]) => (
               <a key={href} href={`#${href}`} className="anchor-link">
                 {label}
@@ -462,64 +450,73 @@ export default function Home() {
             ))}
           </nav>
 
-          <div className="header-actions">
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
             <button
               onClick={toggleLanguage}
-              aria-label={language === "en" ? "Passa all’italiano" : "Switch to English"}
-              title={language === "en" ? "Passa all’italiano" : "Switch to English"}
-              className="button-secondary language-button"
+              aria-label="Change language"
+              title="Change language"
+              className="button-secondary"
+              style={{ minHeight: 42, padding: "0.65rem 0.8rem", border: "1px solid var(--border)", cursor: "pointer" }}
             >
-              <Languages size={17} className="language-icon" />
-              <span>{language === "en" ? "IT" : "EN"}</span>
+              <Languages size={17} />
+              {language === "en" ? "IT" : "EN"}
             </button>
-
             <button
               onClick={toggleTheme}
-              aria-label={dark ? "Use light theme" : "Use dark theme"}
-              title={dark ? "Use light theme" : "Use dark theme"}
-              className="button-secondary icon-button"
+              aria-label="Toggle color theme"
+              title="Toggle color theme"
+              className="button-secondary"
+              style={{ minHeight: 42, width: 42, padding: 0, border: "1px solid var(--border)", cursor: "pointer" }}
             >
               {dark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-
             <button
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-              className="button-secondary icon-button mobile-menu-button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Open menu"
+              className="button-secondary"
+              style={{
+                minHeight: 42,
+                width: 42,
+                padding: 0,
+                border: "1px solid var(--border)",
+                cursor: "pointer",
+                display: "none"
+              }}
+              id="mobile-menu-button"
             >
-              {menuOpen ? <X size={19} /> : <Menu size={19} />}
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
       </header>
 
       {menuOpen && (
-        <>
-          <button
-            className="mobile-menu-backdrop"
-            aria-label="Close menu"
-            onClick={() => setMenuOpen(false)}
-          />
-          <nav
-            id="mobile-navigation"
-            className="glass mobile-navigation"
-            aria-label="Mobile navigation"
-          >
-            {navItems.map(([href, label]) => (
-              <a
-                key={href}
-                href={`#${href}`}
-                onClick={() => setMenuOpen(false)}
-                className="mobile-nav-link"
-              >
-                {label}
-                <ArrowUpRight size={17} />
-              </a>
-            ))}
-          </nav>
-        </>
+        <div
+          className="glass"
+          style={{
+            position: "fixed",
+            zIndex: 49,
+            top: 84,
+            left: "0.6rem",
+            right: "0.6rem",
+            padding: "1rem",
+            borderRadius: "1.4rem",
+            display: "grid",
+            gap: "0.25rem"
+          }}
+        >
+          {navItems.map(([href, label]) => (
+            <a
+              key={href}
+              href={`#${href}`}
+              onClick={() => setMenuOpen(false)}
+              className="anchor-link"
+              style={{ padding: "0.8rem" }}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       )}
 
       <main>
@@ -736,157 +733,9 @@ export default function Home() {
       </footer>
 
       <style jsx global>{`
-        .header-inner {
-          min-height: 62px;
-          padding: 0.45rem 0.65rem 0.45rem 1rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-        }
-
-        .site-name {
-          color: var(--foreground);
-          font-weight: 900;
-          letter-spacing: -0.04em;
-          text-decoration: none;
-          white-space: nowrap;
-        }
-
-        .desktop-nav {
-          display: flex;
-          align-items: center;
-          gap: 1.15rem;
-        }
-
-        .header-actions {
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          flex: 0 0 auto;
-        }
-
-        .language-button,
-        .icon-button {
-          min-height: 42px;
-          border: 1px solid var(--border);
-          cursor: pointer;
-        }
-
-        .language-button {
-          padding: 0.65rem 0.8rem;
-        }
-
-        .icon-button {
-          width: 42px;
-          padding: 0;
-        }
-
-        .mobile-menu-button {
-          display: none;
-        }
-
-        .mobile-menu-backdrop {
-          position: fixed;
-          inset: 0;
-          z-index: 48;
-          border: 0;
-          background: rgba(0, 0, 0, 0.28);
-          backdrop-filter: blur(2px);
-          cursor: default;
-        }
-
-        .mobile-navigation {
-          position: fixed;
-          z-index: 49;
-          top: 84px;
-          left: 0.6rem;
-          right: 0.6rem;
-          padding: 0.65rem;
-          border-radius: 1.4rem;
-          display: grid;
-          gap: 0.2rem;
-          max-height: calc(100vh - 96px);
-          overflow-y: auto;
-        }
-
-        .mobile-nav-link {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          min-height: 52px;
-          padding: 0.85rem 1rem;
-          border-radius: 0.9rem;
-          color: var(--foreground);
-          font-weight: 800;
-          text-decoration: none;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link:focus-visible {
-          background: var(--surface);
-          outline: none;
-        }
-
-        @media (max-width: 980px) {
-          .desktop-nav {
-            display: none;
-          }
-
-          .mobile-menu-button {
-            display: inline-flex;
-          }
-        }
-
-        @media (max-width: 520px) {
-          #site-header {
-            top: 8px !important;
-            width: calc(100% - 0.8rem) !important;
-            border-radius: 1.25rem !important;
-          }
-
-          .header-inner {
-            min-height: 58px;
-            padding: 0.4rem 0.45rem 0.4rem 0.75rem;
-            gap: 0.45rem;
-          }
-
-          .site-name {
-            max-width: 145px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 0.95rem;
-          }
-
-          .header-actions {
-            gap: 0.3rem;
-          }
-
-          .language-button {
-            min-width: 42px;
-            width: 42px;
-            padding: 0;
-          }
-
-          .language-icon {
-            display: none;
-          }
-
-          .icon-button {
-            min-height: 40px;
-            width: 40px;
-          }
-
-          .mobile-navigation {
-            top: 76px;
-            left: 0.4rem;
-            right: 0.4rem;
-            max-height: calc(100vh - 84px);
-          }
-
-          .about-grid {
-            grid-template-columns: 1fr !important;
-          }
+        @media (max-width: 780px) {
+          #mobile-menu-button { display: inline-flex !important; }
+          .about-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>

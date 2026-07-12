@@ -180,15 +180,4 @@ a, button {
   .desktop-nav {
     display: none;
   }
-
-  /* Mobile experience timeline:
-     remove the decorative rail and recover horizontal space. */
-  #experience article {
-    padding-left: 0 !important;
-  }
-
-  #experience .timeline-line,
-  #experience .timeline-dot {
-    display: none;
-  }
 }

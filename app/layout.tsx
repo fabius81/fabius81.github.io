@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script>
+        <Script
           id="google-tag-manager"
           strategy="beforeInteractive"
         >
@@ -41,7 +41,7 @@ export default function RootLayout({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-TG6QRMZ');
           `}
-        </script>
+        </Script>
       </head>
       <body>
   		{/* Google Tag Manager (noscript) */}

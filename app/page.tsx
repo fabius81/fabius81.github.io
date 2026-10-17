@@ -1,5 +1,6 @@
 "use client";
 
+import CookieConsent from "./CookieConsent";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -726,6 +727,7 @@ export default function Home() {
             <div className="pill" style={{ marginTop: "1.2rem" }}>{t.contact.location}</div>
           </div>
         </section>
+        <CookieConsent language={language} />
       </main>
 
       <footer style={{ borderTop: "1px solid var(--border)", padding: "2rem 0 3rem" }}>

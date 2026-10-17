@@ -65,21 +65,28 @@ export default function CookieConsent({ language }: Props) {
       };
 
     window.gtag("consent", "update", {
-      analytics_storage:
-        value === "accepted" ? "granted" : "denied",
+      analytics_storage: value === "accepted" ? "granted" : "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied",
     });
 
-    if (value === "accepted") {
-      window.dataLayer.push({
-        event: "analytics_consent_granted",
-      });
-    }
+    window.dataLayer.push({
+      event:
+        value === "accepted"
+          ? "analytics_consent_granted"
+          : "analytics_consent_denied",
+    });
   }
 
   function saveChoice(value: Exclude<ConsentChoice, null>) {
+    if (choice === "rejected") {
+      window.dataLayer = window.dataLayer || [];
+
+      window.dataLayer.push({
+        event: "analytics_consent_denied"
+      });
+    }
     localStorage.setItem(STORAGE_KEY, value);
     setChoice(value);
     updateConsent(value);

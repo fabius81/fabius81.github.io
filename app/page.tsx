@@ -192,7 +192,8 @@ const copy = {
       github: "View GitHub",
       location: "Based in Italy · Open to remote roles across Europe"
     },
-    footer: "Designed and built by Fabio Di Paolo."
+    footer: "Designed and built by Fabio Di Paolo.",
+    cookiePreferences: "Cookie preferences"
   },
   it: {
     nav: {
@@ -365,7 +366,8 @@ const copy = {
       github: "Visita GitHub",
       location: "Vivo in Italia · Disponibile per ruoli da remoto in Europa"
     },
-    footer: "Progettato e sviluppato da Fabio Di Paolo."
+    footer: "Progettato e sviluppato da Fabio Di Paolo.",
+    cookiePreferences: "Preferenze cookie"
   }
 } as const;
 
@@ -731,9 +733,39 @@ export default function Home() {
       </main>
 
       <footer style={{ borderTop: "1px solid var(--border)", padding: "2rem 0 3rem" }}>
-        <div className="container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "1rem", color: "var(--muted)", fontSize: "0.85rem" }}>
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "1rem",
+            color: "var(--muted)",
+            fontSize: "0.85rem"
+          }}
+        >
           <span>© {new Date().getFullYear()} Fabio Di Paolo</span>
-          <span>{t.footer}</span>
+
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.5rem" }}>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("open-cookie-preferences"))}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                color: "inherit",
+                font: "inherit",
+                textDecoration: "underline",
+                cursor: "pointer"
+              }}
+            >
+              {t.cookiePreferences}
+            </button>
+
+            <span>{t.footer}</span>
+          </div>
         </div>
       </footer>
 
